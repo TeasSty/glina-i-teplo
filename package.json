@@ -12,6 +12,7 @@
     "build:production": "astro build",
     "check": "astro check",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "prepare:logo": "node scripts/prepare-logo.mjs",
     "test:smoke": "node scripts/smoke-test.mjs",
     "preview": "astro preview",
     "astro": "astro"
