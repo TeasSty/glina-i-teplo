@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+	title="Базовый курс керамиста в Пензе — Глина и Тепло"
+	description="Курс керамики с нуля: 6 занятий, ручная лепка, гончарный круг, теория материалов, декор и 6 готовых изделий."
+	image="media/green-cup-1080.webp"
+>
+	<section class="page-hero">
+		<div>
+			<p class="eyebrow">От первого комка до набора посуды</p>
+			<h1>Базовый курс керамиста</h1>
+		</div>
+		<div class="page-hero__aside">
+			<p>Последовательная программа для тех, кто хочет не только попробовать, но и понять материал.</p>
+			<p>Шесть занятий — от теории и ручной лепки до гончарного круга и финальной обработки.</p>
+			<a class="button" href={`${base}contacts/#booking`}>Узнать даты курса</a>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="number-line">
+			<div><strong>6</strong><p>насыщенных занятий</p></div>
+			<div><strong>6</strong><p>готовых изделий</p></div>
+			<div><strong>15 000 ₽</strong><p>стоимость полного курса</p></div>
+		</div>
+	</section>
+
+	<section class="feature-split">
+		<ResponsiveImage
+			class="feature-split__image"
+			name="green-cup"
+			alt="Зелёная глазурованная кружка ручной работы"
+			sizes="(max-width: 760px) 100vw, 45vw"
+		/>
+		<div class="feature-split__copy">
+			<p class="eyebrow">Программа</p>
+			<h2>Форма,<br />круг, декор</h2>
+			<ul class="detail-list">
+				<li>Основы работы с глиной и материалами</li>
+				<li>Ручная лепка и создание собственных форм</li>
+				<li>Работа за гончарным кругом</li>
+				<li>Обжиги, роспись и глазурование</li>
+				<li>Финальная обработка изделий</li>
+			</ul>
+			<a class="button" href={`${base}contacts/#booking`}>Записаться на курс</a>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-heading">
+			<p class="eyebrow">Если курс пока не нужен</p>
+			<h2>Работайте<br />в своём ритме</h2>
+			<p>Для тех, кто уже знаком с глиной или хочет заниматься регулярно.</p>
+		</div>
+		<div class="service-stack">
+			<article class="service-row">
+				<h2>Абонемент</h2>
+				<div class="service-row__body">
+					<p>Несколько занятий в течение месяца — больше времени на практику и собственные идеи.</p>
+				</div>
+				<strong class="service-row__price">6 800 ₽</strong>
+			</article>
+			<article class="service-row">
+				<h2>Коворкинг</h2>
+				<div class="service-row__body">
+					<p>Оборудованное пространство, инструменты и гончарный инвентарь для самостоятельной работы.</p>
+				</div>
+				<strong class="service-row__price">1 600 ₽</strong>
+			</article>
+		</div>
+	</section>
+</BaseLayout>

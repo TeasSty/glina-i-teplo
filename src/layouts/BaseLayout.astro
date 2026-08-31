@@ -1,0 +1,102 @@
+---
+import '@fontsource-variable/brygada-1918/wght.css';
+import '@fontsource-variable/golos-text/wght.css';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { business } from '../data/site';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+	noindex?: boolean;
+}
+
+const {
+	title,
+	description,
+	image = 'media/ceramics-sun-1080.webp',
+	noindex = false,
+} = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const socialImage = Astro.site ? new URL(`${base}${image}`, Astro.site) : new URL(`${base}${image}`, Astro.url);
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'LocalBusiness',
+	name: business.legalName,
+	image: socialImage.href,
+	url: canonical.origin + base,
+	telephone: business.phone,
+	priceRange: '₽₽',
+	sameAs: [business.vkCommunity],
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: 'ул. Мира, 46',
+		addressLocality: 'Пенза',
+		addressCountry: 'RU',
+	},
+	openingHoursSpecification: [
+		{
+			'@type': 'OpeningHoursSpecification',
+			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+			opens: '10:00',
+			closes: '20:00',
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#f5f1ea" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<meta property="og:locale" content="ru_RU" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={business.legalName} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={socialImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImage} />
+		<title>{title}</title>
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Перейти к содержанию</a>
+		<div class="page-shell">
+			<Header />
+			<main id="main">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+		<a class="mobile-booking" data-mobile-booking href={`${base}contacts/#booking`}>Записаться</a>
+		<script>
+			const stickyBooking = document.querySelector<HTMLElement>('[data-mobile-booking]');
+			const openingSection = document.querySelector<HTMLElement>('main > section:first-child');
+
+			if (stickyBooking && openingSection && 'IntersectionObserver' in window) {
+				const observer = new IntersectionObserver(
+					([entry]) => stickyBooking.classList.toggle('is-visible', !entry.isIntersecting),
+					{ threshold: 0.05 },
+				);
+				observer.observe(openingSection);
+			} else {
+				stickyBooking?.classList.add('is-visible');
+			}
+		</script>
+	</body>
+</html>

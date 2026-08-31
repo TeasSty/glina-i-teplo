@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingComposer from '../components/BookingComposer.astro';
+import { business } from '../data/site';
+---
+
+<BaseLayout
+	title="Контакты и запись — Глина и Тепло, Пенза"
+	description="Запись в гончарную студию «Глина и Тепло»: ул. Мира, 46, ЖК «Континент», Пенза. Ежедневно с 10:00 до 20:00."
+>
+	<section class="page-hero">
+		<div>
+			<p class="eyebrow">Пенза · ЖК «Континент»</p>
+			<h1>До встречи в студии</h1>
+		</div>
+		<div class="page-hero__aside">
+			<p>{business.address}<br />{business.addressNote}</p>
+			<p>{business.hours}. У студии есть удобная парковка.</p>
+			<a class="button" href={business.map} target="_blank" rel="noreferrer">Построить маршрут ↗</a>
+		</div>
+	</section>
+
+	<section class="contact-cards" aria-label="Способы связи">
+		<article class="contact-block">
+			<p class="eyebrow">Позвонить</p>
+			<h2>{business.phoneDisplay}</h2>
+			<p>Быстрый способ уточнить ближайшее свободное время.</p>
+			<a class="text-link" href={`tel:${business.phone}`}>Набрать номер</a>
+		</article>
+		<article class="contact-block">
+			<p class="eyebrow">Написать</p>
+			<h2>Сообщения VK</h2>
+			<p>Подходит, если хотите описать повод, количество гостей и желаемую дату.</p>
+			<a class="text-link" href={business.vk} target="_blank" rel="noreferrer">Открыть диалог ↗</a>
+		</article>
+	</section>
+
+	<BookingComposer />
+</BaseLayout>

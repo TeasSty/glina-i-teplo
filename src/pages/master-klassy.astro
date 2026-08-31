@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+	title="Мастер-классы по керамике в Пензе — Глина и Тепло"
+	description="Групповые и индивидуальные мастер-классы по ручной лепке и за гончарным кругом. Для взрослых и детей от 6 лет."
+	image="media/cat-bowl-1080.webp"
+>
+	<section class="page-hero">
+		<div>
+			<p class="eyebrow">Ручная лепка · гончарный круг</p>
+			<h1>Ваши руки помнят</h1>
+		</div>
+		<div class="page-hero__aside">
+			<p>Неважно, когда вы последний раз что-то лепили. Мастер показывает технику, а идею и характер вещи выбираете вы.</p>
+			<p>Большинство занятий длится 1,5–2 часа. Опыт работы с глиной не требуется.</p>
+			<a class="button" href={`${base}contacts/#booking`}>Записаться</a>
+		</div>
+	</section>
+
+	<section class="section">
+		<p class="eyebrow">Четыре способа начать</p>
+		<div class="service-stack">
+			<article class="service-row">
+				<h2>Групповое занятие</h2>
+				<div class="service-row__body">
+					<p>Ручная лепка в кругу друзей, семьи или новых знакомых. Мастер подробно показывает каждый этап.</p>
+					<ul>
+						<li>1,5–2 часа</li>
+						<li>Только ручная лепка</li>
+						<li>Для взрослых и подростков от 14 лет</li>
+					</ul>
+				</div>
+				<strong class="service-row__price">1 900 ₽ / чел.</strong>
+			</article>
+
+			<article class="service-row">
+				<h2>Детское занятие</h2>
+				<div class="service-row__body">
+					<p>Тарелки с животными, кружки, фигурки и декор, которые ребёнок придумывает и создаёт сам.</p>
+					<ul>
+						<li>Для детей от 6 лет</li>
+						<li>Мастер помогает на всех этапах</li>
+						<li>Тему ближайшего занятия уточняйте при записи</li>
+					</ul>
+				</div>
+				<strong class="service-row__price">1 700 ₽ / чел.</strong>
+			</article>
+
+			<article class="service-row">
+				<h2>Индивидуально</h2>
+				<div class="service-row__body">
+					<p>Всё внимание мастера — вашей идее. Можно выбрать ручную лепку или гончарный круг.</p>
+					<ul>
+						<li>Создание формы и декорирование</li>
+						<li>1 человек — 3 500 ₽</li>
+						<li>2 человека — 6 000 ₽</li>
+						<li>3 человека — 7 500 ₽</li>
+						<li>4 человека — 9 000 ₽</li>
+						<li>5 человек — 10 000 ₽</li>
+					</ul>
+				</div>
+				<strong class="service-row__price">от 3 500 ₽</strong>
+			</article>
+
+			<article class="service-row">
+				<h2>Гончарный круг</h2>
+				<div class="service-row__body">
+					<p>Центрирование глины и создание формы на вращающемся круге под руководством мастера.</p>
+					<ul>
+						<li>Подходит новичкам</li>
+						<li>Можно выбрать как индивидуальный формат</li>
+						<li>Декор и обжиг изделия</li>
+					</ul>
+				</div>
+				<strong class="service-row__price">3 500 ₽</strong>
+			</article>
+		</div>
+	</section>
+
+	<section class="feature-split">
+		<ResponsiveImage
+			class="feature-split__image"
+			name="cat-bowl"
+			alt="Тарелка в форме кота, созданная в студии"
+			sizes="(max-width: 760px) 100vw, 45vw"
+		/>
+		<div class="feature-split__copy">
+			<p class="eyebrow">Что входит</p>
+			<h2>От идеи<br />до обжига</h2>
+			<ul class="detail-list">
+				<li>Глина, инструменты и рабочее место</li>
+				<li>Помощь мастера в течение занятия</li>
+				<li>Роспись специальными красками или глазуровка</li>
+				<li>Обжиг созданного изделия</li>
+			</ul>
+			<a class="button" href={`${base}contacts/#booking`}>Подобрать занятие</a>
+		</div>
+	</section>
+</BaseLayout>

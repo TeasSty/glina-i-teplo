@@ -1,0 +1,35 @@
+---
+import { business, navigation } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<footer class="site-footer">
+	<div class="site-footer__lead">
+		<p class="eyebrow">Пенза · ежедневно 10:00–20:00</p>
+		<h2>Что вы слепите<br />в свой первый раз?</h2>
+		<div class="footer-actions">
+			<a class="button button--light" href={business.vk} target="_blank" rel="noreferrer">Написать в VK</a>
+			<a class="text-link text-link--light" href={`tel:${business.phone}`}>{business.phoneDisplay}</a>
+		</div>
+	</div>
+
+	<div class="site-footer__grid">
+		<div>
+			<strong>{business.name}</strong>
+			<p>{business.address}<br />{business.addressNote}</p>
+		</div>
+		<nav aria-label="Навигация в подвале">
+			{
+				navigation.map((item) => (
+					<a href={`${base}${item.href}`}>{item.label}</a>
+				))
+			}
+		</nav>
+		<div class="site-footer__meta">
+			<a href={business.vkCommunity} target="_blank" rel="noreferrer">Сообщество VK</a>
+			<a href={`${base}privacy/`}>Политика конфиденциальности</a>
+			<p>© {new Date().getFullYear()} «Глина и Тепло»</p>
+		</div>
+	</div>
+</footer>

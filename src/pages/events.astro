@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+	title="Свидания, дни рождения и корпоративы — Глина и Тепло"
+	description="Творческие события в гончарной студии Пензы: свидания для двоих, дни рождения, девичники, школьные группы и корпоративные мастер-классы."
+	image="media/floral-vase-1080.webp"
+>
+	<section class="page-hero">
+		<div>
+			<p class="eyebrow">Повод собраться иначе</p>
+			<h1>Вместо обычного застолья</h1>
+		</div>
+		<div class="page-hero__aside">
+			<p>Гости не просто встречаются — каждый создаёт свою вещь. Мастер ведёт занятие, а после остаются изделия и общая история.</p>
+			<p>Студия принимает группы до 32 человек.</p>
+			<a class="button" href={`${base}contacts/#booking`}>Обсудить событие</a>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-heading">
+			<p class="eyebrow">Выберите повод</p>
+			<h2>Пять разных<br />сценариев</h2>
+			<p>Стоимость зависит от состава группы. Администратор подтвердит свободное время и подходящую тему.</p>
+		</div>
+
+		<div class="event-timeline">
+			<article class="event-panel">
+				<span class="event-panel__number">01 · ВДВОЁМ</span>
+				<h2>Свидание</h2>
+				<p>Ручная лепка или гончарный круг, затем чай или кофе, угощения, свечи и мягкая музыка.</p>
+				<strong>6 000 ₽ за двоих</strong>
+			</article>
+			<article class="event-panel">
+				<span class="event-panel__number">02 · ПРАЗДНИК</span>
+				<h2>День рождения</h2>
+				<p>1,5–2 часа творчества и дополнительный час для пиццы, фуршета или чаепития с тортом.</p>
+				<strong>от 10 000 ₽ за 5 гостей</strong>
+			</article>
+			<article class="event-panel">
+				<span class="event-panel__number">03 · КОМАНДА</span>
+				<h2>Корпоратив</h2>
+				<p>Совместное занятие, где сотрудники общаются и создают керамику вместо формальной программы.</p>
+				<strong>от 1 900 ₽ / чел.</strong>
+			</article>
+			<article class="event-panel">
+				<span class="event-panel__number">04 · КЛАСС</span>
+				<h2>Школьная группа</h2>
+				<p>Практическое знакомство с глиной для класса. Формат и тему студия подбирает по возрасту.</p>
+				<strong>от 1 000 ₽ / чел.</strong>
+			</article>
+			<article class="event-panel">
+				<span class="event-panel__number">05 · БЛИЗКИЕ</span>
+				<h2>Девичник или семья</h2>
+				<p>Групповой мастер-класс для близких людей без ведущих, конкурсов и декоративного шума.</p>
+				<strong>от 1 900 ₽ / чел.</strong>
+			</article>
+			<article class="event-panel">
+				<span class="event-panel__number">ГДЕ</span>
+				<h2>{business.address}</h2>
+				<p>{business.addressNote}. Панорамные окна и удобная парковка рядом со студией.</p>
+				<strong>{business.hours}</strong>
+			</article>
+		</div>
+	</section>
+
+	<section class="location-strip section">
+		<div>
+			<p class="eyebrow">Расскажите о компании</p>
+			<h2>Подберём формат под ваш повод</h2>
+			<p>Укажите дату и количество гостей — администратор предложит доступные варианты.</p>
+		</div>
+		<div class="location-strip__actions">
+			<a class="button" href={`${base}contacts/#booking`}>Собрать заявку</a>
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,147 @@
+# Гончарная студия «Глина и Тепло»
+
+Коммерческий сайт гончарной студии в Пензе. Статическая часть собрана на Astro,
+форма заявки работает через PHP на production-хостинге REG.RU.
+
+## Локальный запуск
+
+Требования: Node.js 22.12 или новее.
+
+```bash
+npm ci
+npm run dev
+```
+
+По правилам проекта dev-сервер можно запускать в фоне:
+
+```bash
+npx astro dev --background
+```
+
+## Проверки
+
+```bash
+npm run build
+npm run build:preview
+```
+
+- `npm run build` создаёт production-сборку для корня домена.
+- `npm run build:preview` создаёт сборку с базовым путём `/glina-i-teplo/` для GitHub Pages.
+
+## Публикация превью на GitHub Pages
+
+Workflow `.github/workflows/deploy-pages.yml` автоматически публикует ветку
+`main` на GitHub Pages. На Pages PHP не выполняется, поэтому форма определяет
+отсутствие backend и предлагает отправить подготовленное сообщение через VK
+или позвонить.
+
+## Production на REG.RU
+
+### 1. Соберите сайт для настоящего домена
+
+Linux/macOS:
+
+```bash
+SITE_URL=https://ваш-домен.ru npm run build:production
+```
+
+PowerShell:
+
+```powershell
+$env:SITE_URL = "https://ваш-домен.ru"
+npm run build:production
+```
+
+В папке `dist/` появится готовый сайт с путями от корня домена.
+
+### 2. Настройте почту формы
+
+1. Создайте на REG.RU доменный почтовый ящик, например `site@ваш-домен.ru`.
+2. Скопируйте `dist/api/config.example.php` как `dist/api/config.php`.
+3. Укажите:
+   - `recipient_email` — адрес владельца, куда приходят заявки;
+   - `from_email` — доменный почтовый ящик на REG.RU;
+   - `from_name` — подпись отправителя;
+   - `allowed_origins` — production-домен с `https://`.
+4. Не добавляйте `config.php` в Git. Этот путь уже находится в `.gitignore`.
+
+### 3. Загрузите файлы
+
+Загрузите **содержимое** папки `dist/` в `public_html` домена через файловый
+менеджер REG.RU или SFTP. Проверьте, что сервер использует PHP 7.4+ и функция
+`mail()` доступна.
+
+### 4. Проверьте endpoint
+
+Откройте:
+
+```text
+https://ваш-домен.ru/api/contact.php?health=1
+```
+
+Исправно настроенный endpoint возвращает:
+
+```json
+{"ok":true,"backend":"php-mail"}
+```
+
+После этого отправьте тестовую заявку через форму и проверьте папку «Спам».
+
+## Защита формы
+
+- серверная валидация обязательных полей;
+- honeypot против простых ботов;
+- ограничение размера запроса;
+- ограничение частоты заявок по IP;
+- проверка источника запроса;
+- безопасные JSON-ответы без раскрытия внутренних ошибок;
+- `config.php` не публикуется в репозитории.
+
+## Медиа
+
+Фотографии взяты из открытых материалов сообщества студии VK с разрешения
+заказчика. Для каждой фотографии подготовлены варианты AVIF и WebP шириной
+560 и 1080 пикселей.
+# Astro Starter Kit: Minimal
+
+```sh
+npm create astro@latest -- --template minimal
+```
+
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
+
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

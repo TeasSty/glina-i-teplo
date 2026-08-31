@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+	title="Подарочный сертификат в гончарную студию — Глина и Тепло"
+	description="Подарочный сертификат на мастер-класс по керамике в Пензе. Номинал от 1 000 ₽, занятия для одного, пары или семьи."
+	image="media/ceramic-plate-1080.webp"
+>
+	<section class="page-hero">
+		<div>
+			<p class="eyebrow">Не очередная вещь</p>
+			<h1>Подарите время с глиной</h1>
+		</div>
+		<div class="page-hero__aside">
+			<p>Сертификат превращается не в безличную покупку, а в несколько часов творчества и собственное изделие.</p>
+			<p>Номинал начинается от 1 000 ₽. Электронный или печатный вариант уточните у студии.</p>
+			<a class="button" href={`${base}contacts/#booking`}>Заказать сертификат</a>
+		</div>
+	</section>
+
+	<section class="feature-split">
+		<ResponsiveImage
+			class="feature-split__image"
+			name="ceramic-plate"
+			alt="Тарелка с надписью «Следуй за мечтой»"
+			sizes="(max-width: 760px) 100vw, 45vw"
+		/>
+		<div class="feature-split__copy">
+			<p class="eyebrow">Кому подойдёт</p>
+			<h2>Одному,<br />двоим, семье</h2>
+			<ul class="detail-list">
+				<li>Первый мастер-класс без опыта</li>
+				<li>Творческое свидание для пары</li>
+				<li>Семейное занятие с ребёнком от 6 лет</li>
+				<li>Вклад в базовый курс керамиста</li>
+			</ul>
+			<a class="button" href={`${base}contacts/#booking`}>Выбрать номинал</a>
+		</div>
+	</section>
+
+	<section class="section section--dark">
+		<div class="section-heading">
+			<p class="eyebrow">Как оформить</p>
+			<h2>Три коротких<br />шага</h2>
+		</div>
+		<ol class="process-line">
+			<li><span>1</span><h3>Выберите повод</h3><p>Расскажите, для кого подарок и сколько будет гостей.</p></li>
+			<li><span>2</span><h3>Уточните номинал</h3><p>Администратор поможет соотнести его с подходящим форматом.</p></li>
+			<li><span>3</span><h3>Получите сертификат</h3><p>Формат и способ получения подтвердит студия.</p></li>
+			<li><span>→</span><h3>Подарите впечатление</h3><p>Получатель сам согласует удобную дату занятия.</p></li>
+		</ol>
+	</section>
+</BaseLayout>

@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import { business, formats, gallery, priceGroups } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+	title="Гончарная студия «Глина и Тепло» в Пензе"
+	description="Мастер-классы по ручной лепке и за гончарным кругом в Пензе. Индивидуальные занятия, свидания, дни рождения и курсы керамики на ул. Мира, 46."
+>
+	<section class="home-hero">
+		<div class="hero-rings" aria-hidden="true">
+			<span></span><span></span><span></span><span></span>
+		</div>
+
+		<div class="hero-copy">
+			<p class="eyebrow">Гончарная студия · Пенза</p>
+			<h1>Слепите вещь,<br />которой больше <em>ни у кого нет</em></h1>
+			<p class="hero-lead">
+				За 1,5–2 часа создадите своё изделие из глины. Опыт не нужен —
+				мастер всё покажет.
+			</p>
+			<div class="hero-actions">
+				<a class="button" href={`${base}contacts/#booking`}>Записаться</a>
+				<a class="text-link" href="#formats">Выбрать формат</a>
+			</div>
+		</div>
+
+		<div class="hero-art" data-hero-art>
+			<ResponsiveImage
+				class="hero-object hero-object--main"
+				name="cat-bowl"
+				alt="Керамическая тарелка в форме чёрного кота, сделанная в студии"
+				sizes="(max-width: 720px) 72vw, 32vw"
+				loading="eager"
+				fetchpriority="high"
+			/>
+			<ResponsiveImage
+				class="hero-object hero-object--satellite"
+				name="watermelon-plate"
+				alt="Керамическая тарелка в виде арбуза"
+				sizes="(max-width: 720px) 34vw, 15vw"
+				loading="eager"
+			/>
+			<p class="hero-art__note">Настоящие работы<br />гостей студии</p>
+		</div>
+
+		<div class="hero-address">
+			<span>Сегодня</span>
+			<strong>10:00—20:00</strong>
+			<a href={business.map} target="_blank" rel="noreferrer">ул. Мира, 46 ↗</a>
+		</div>
+	</section>
+
+	<section class="fact-rail" aria-label="Коротко о занятиях">
+		<p><span>01</span> Ручная лепка или круг</p>
+		<p><span>02</span> Для взрослых и детей 6+</p>
+		<p><span>03</span> Группы до 32 гостей</p>
+	</section>
+
+	<section class="format-section section" id="formats">
+		<div class="section-heading section-heading--wide">
+			<p class="eyebrow">Подберите свой вечер</p>
+			<h2>С кем вы хотите<br />прийти?</h2>
+			<p>Выберите компанию — мы покажем подходящий формат и честную стоимость.</p>
+		</div>
+
+		<div class="format-selector" data-format-selector>
+			<div class="format-list" role="tablist" aria-label="Форматы занятий">
+				{
+					formats.map((format, index) => (
+						<button
+							class:list={['format-option', { 'is-active': index === 0 }]}
+							type="button"
+							role="tab"
+							aria-selected={index === 0 ? 'true' : 'false'}
+							aria-controls={`format-image-${format.id}`}
+							data-format={format.id}
+						>
+							<span class="format-option__index">0{index + 1}</span>
+							<span class="format-option__content">
+								<small>{format.kicker}</small>
+								<strong>{format.title}</strong>
+								<em>{format.description}</em>
+							</span>
+							<span class="format-option__meta">
+								<b>{format.price}</b>
+								<small>{format.duration}</small>
+							</span>
+						</button>
+					))
+				}
+			</div>
+
+			<div class="format-stage">
+				{
+					formats.map((format, index) => (
+						<div
+							id={`format-image-${format.id}`}
+							class:list={['format-stage__image', { 'is-active': index === 0 }]}
+							role="tabpanel"
+							data-format-panel={format.id}
+						>
+							<ResponsiveImage name={format.image} alt={format.alt} sizes="(max-width: 900px) 92vw, 38vw" />
+							<span>работа гостя студии</span>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="process-section section section--dark">
+		<div class="section-heading">
+			<p class="eyebrow">От комка глины до вашей вещи</p>
+			<h2>Не нужно уметь.<br />Нужно попробовать.</h2>
+		</div>
+		<ol class="process-line">
+			<li>
+				<span>1</span>
+				<h3>Выбираете идею</h3>
+				<p>Тарелка, кружка, фигурка или предмет декора.</p>
+			</li>
+			<li>
+				<span>2</span>
+				<h3>Создаёте форму</h3>
+				<p>Мастер показывает технику и помогает в сложных местах.</p>
+			</li>
+			<li>
+				<span>3</span>
+				<h3>Добавляете цвет</h3>
+				<p>Роспись специальными красками или глазуровка.</p>
+			</li>
+			<li>
+				<span>4</span>
+				<h3>Мы обжигаем</h3>
+				<p>После обжига изделие становится готовой вещью для дома.</p>
+			</li>
+		</ol>
+	</section>
+
+	<section class="gallery-section section">
+		<div class="section-heading">
+			<p class="eyebrow">Не образцы из каталога</p>
+			<h2>У каждой вещи<br />свой характер</h2>
+			<p>Все фотографии взяты из открытых материалов самой студии.</p>
+		</div>
+		<div class="gallery-grid">
+			{
+				gallery.map(([name, alt], index) => (
+					<figure class={`gallery-item gallery-item--${index + 1}`}>
+						<ResponsiveImage name={name} alt={alt} sizes="(max-width: 720px) 92vw, 32vw" />
+						<figcaption>работа гостя · {(index + 1).toString().padStart(2, '0')}</figcaption>
+					</figure>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="price-section section" id="prices">
+		<div class="section-heading">
+			<p class="eyebrow">Прайс без сюрпризов</p>
+			<h2>Выберите<br />свой формат</h2>
+			<p>Актуальную тему занятия и свободное время подтвердит администратор.</p>
+		</div>
+		<div class="price-ledger">
+			{
+				priceGroups.map((group) => (
+					<div class="price-group">
+						<h3>{group.title}</h3>
+						<dl>
+							{group.items.map(([name, price]) => <><dt>{name}</dt><dd>{price}</dd></>)}
+						</dl>
+					</div>
+				))
+			}
+		</div>
+		<div class="price-note">
+			<p>Цены собраны из актуального каталога студии в VK.</p>
+			<a class="text-link" href={`${base}master-klassy/`}>Что входит в занятия</a>
+		</div>
+	</section>
+
+	<section class="certificate-banner">
+		<ResponsiveImage
+			class="certificate-banner__image"
+			name="ceramic-plate"
+			alt="Керамическая тарелка с надписью «Следуй за мечтой»"
+			sizes="(max-width: 720px) 90vw, 38vw"
+		/>
+		<div class="certificate-banner__copy">
+			<p class="eyebrow">Подарок, который сделают своими руками</p>
+			<h2>Сертификат<br />от 1 000 ₽</h2>
+			<p>Для одного, пары или целой семьи. Электронный или печатный формат уточните у студии.</p>
+			<a class="button" href={`${base}certificate/`}>Выбрать сертификат</a>
+		</div>
+	</section>
+
+	<section class="location-strip section">
+		<div>
+			<p class="eyebrow">Приходите лепить</p>
+			<h2>{business.address}</h2>
+			<p>{business.addressNote} · {business.hours}<br />Рядом есть удобная парковка.</p>
+		</div>
+		<div class="location-strip__actions">
+			<a class="button" href={`${base}contacts/#booking`}>Записаться</a>
+			<a class="text-link" href={business.map} target="_blank" rel="noreferrer">Построить маршрут ↗</a>
+		</div>
+	</section>
+
+	<script>
+		const selector = document.querySelector<HTMLElement>('[data-format-selector]');
+		const tabs = selector?.querySelectorAll<HTMLButtonElement>('[data-format]');
+		const panels = selector?.querySelectorAll<HTMLElement>('[data-format-panel]');
+
+		tabs?.forEach((tab) => {
+			tab.addEventListener('click', () => {
+				const target = tab.dataset.format;
+				tabs.forEach((item) => {
+					const active = item === tab;
+					item.classList.toggle('is-active', active);
+					item.setAttribute('aria-selected', String(active));
+				});
+				panels?.forEach((panel) => panel.classList.toggle('is-active', panel.dataset.formatPanel === target));
+			});
+		});
+
+		const heroArt = document.querySelector<HTMLElement>('[data-hero-art]');
+		const canMove = window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)');
+		if (heroArt && canMove.matches) {
+			window.addEventListener('pointermove', (event) => {
+				heroArt.style.setProperty('--pointer-x', `${(event.clientX / window.innerWidth - 0.5) * 2}`);
+				heroArt.style.setProperty('--pointer-y', `${(event.clientY / window.innerHeight - 0.5) * 2}`);
+			});
+		}
+	</script>
+</BaseLayout>

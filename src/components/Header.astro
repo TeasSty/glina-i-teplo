@@ -1,0 +1,55 @@
+---
+import { business, navigation } from '../data/site';
+
+const base = import.meta.env.BASE_URL;
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" data-header>
+	<a class="brand" href={base} aria-label={`${business.name}, на главную`}>
+		<svg class="brand__mark" viewBox="0 0 64 42" aria-hidden="true">
+			<path d="M6 31c7-11 10-20 12-27 6 8 8 17 9 27H6Z"></path>
+			<path d="M26 31c4-8 8-15 13-21 6 8 9 15 10 21H26Z"></path>
+			<path d="M44 31c3-6 6-11 9-15 4 6 6 11 6 15H44Z"></path>
+			<path d="M4 36h56"></path>
+		</svg>
+		<span>
+			<strong>Глина и Тепло</strong>
+			<small>гончарная студия · Пенза</small>
+		</span>
+	</a>
+
+	<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+		<span></span><span></span>
+		<span class="sr-only">Открыть меню</span>
+	</button>
+
+	<nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+		{
+			navigation.map((item) => (
+				<a href={`${base}${item.href}`} aria-current={currentPath.includes(item.href) ? 'page' : undefined}>
+					{item.label}
+				</a>
+			))
+		}
+	</nav>
+
+	<a class="button button--small header-cta" href={`${base}contacts/#booking`}>Записаться</a>
+</header>
+
+<script>
+	const header = document.querySelector<HTMLElement>('[data-header]');
+	const toggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+	const nav = header?.querySelector<HTMLElement>('.site-nav');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+		toggle.setAttribute('aria-expanded', String(!isOpen));
+		header?.classList.toggle('is-menu-open', !isOpen);
+	});
+
+	nav?.addEventListener('click', () => {
+		toggle?.setAttribute('aria-expanded', 'false');
+		header?.classList.remove('is-menu-open');
+	});
+</script>
