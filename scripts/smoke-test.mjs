@@ -39,6 +39,21 @@ if (!(await desktop.locator('[data-format-panel="together"]').evaluate((element)
 	failures.push('Переключатель форматов не активирует нужное изображение.');
 }
 
+const compactDesktop = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+await compactDesktop.goto(baseUrl, { waitUntil: 'networkidle' });
+const [heroActionsBox, heroAddressBox] = await Promise.all([
+	compactDesktop.locator('.hero-actions').boundingBox(),
+	compactDesktop.locator('.hero-address').boundingBox(),
+]);
+if (
+	heroActionsBox &&
+	heroAddressBox &&
+	heroActionsBox.y + heroActionsBox.height > heroAddressBox.y
+) {
+	failures.push('CTA главного экрана пересекается с блоком часов работы на desktop.');
+}
+await compactDesktop.screenshot({ path: 'artifacts/home-compact-desktop.png', fullPage: true });
+
 for (const path of ['master-klassy/', 'events/', 'course/', 'certificate/', 'contacts/', 'privacy/']) {
 	const response = await desktop.goto(new URL(path, `${baseUrl}/`).href, { waitUntil: 'networkidle' });
 	if (!response?.ok()) failures.push(`Страница ${path} вернула ${response?.status()}.`);
@@ -65,6 +80,25 @@ if (!message.includes('Анна') || !message.includes('Свидание') || !m
 	failures.push('Конструктор заявки не сформировал полное сообщение.');
 }
 await desktop.screenshot({ path: 'artifacts/contacts-desktop.png', fullPage: true });
+
+const tablet = await browser.newPage({ viewport: { width: 900, height: 900 }, deviceScaleFactor: 1 });
+await tablet.goto(new URL('master-klassy/', `${baseUrl}/`).href, { waitUntil: 'networkidle' });
+const individualRow = tablet.locator('.service-row').filter({ hasText: 'Индивидуально' });
+const [individualTitleBox, individualBodyBox] = await Promise.all([
+	individualRow.locator('h2').boundingBox(),
+	individualRow.locator('.service-row__body').boundingBox(),
+]);
+if (
+	individualTitleBox &&
+	individualBodyBox &&
+	individualTitleBox.x < individualBodyBox.x + individualBodyBox.width &&
+	individualTitleBox.x + individualTitleBox.width > individualBodyBox.x &&
+	individualTitleBox.y < individualBodyBox.y + individualBodyBox.height &&
+	individualTitleBox.y + individualTitleBox.height > individualBodyBox.y
+) {
+	failures.push('Заголовок «Индивидуально» пересекается с описанием на ширине 900 px.');
+}
+await tablet.screenshot({ path: 'artifacts/master-klassy-tablet.png', fullPage: true });
 
 const mobile = await browser.newPage({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 1 });
 mobile.on('console', (message) => {
@@ -110,7 +144,9 @@ console.log(
 			failures,
 			screenshots: [
 				'artifacts/home-desktop.png',
+				'artifacts/home-compact-desktop.png',
 				'artifacts/contacts-desktop.png',
+				'artifacts/master-klassy-tablet.png',
 				'artifacts/home-mobile.png',
 				'artifacts/home-320.png',
 			],

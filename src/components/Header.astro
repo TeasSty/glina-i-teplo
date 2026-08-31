@@ -7,12 +7,14 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header" data-header>
 	<a class="brand" href={base} aria-label={`${business.name}, на главную`}>
-		<svg class="brand__mark" viewBox="0 0 64 42" aria-hidden="true">
-			<path d="M6 31c7-11 10-20 12-27 6 8 8 17 9 27H6Z"></path>
-			<path d="M26 31c4-8 8-15 13-21 6 8 9 15 10 21H26Z"></path>
-			<path d="M44 31c3-6 6-11 9-15 4 6 6 11 6 15H44Z"></path>
-			<path d="M4 36h56"></path>
-		</svg>
+		<img
+			class="brand__mark"
+			src={`${base}logo-mark.png`}
+			width="420"
+			height="100"
+			alt=""
+			aria-hidden="true"
+		/>
 		<span>
 			<strong>Глина и Тепло</strong>
 			<small>гончарная студия · Пенза</small>
